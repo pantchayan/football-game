@@ -27,16 +27,14 @@ let addGraphics = () => {
     .attr("height", `${parseInt(container.style("height"))}`)
     .attr("width", `${container.style("width")}`)
     .attr("fill", "#50a946");
-
 };
 
 let runGraphics = () => {
-  
   d3.select("#startPoint")
     .transition()
     .duration(4000)
     .attr("y", `${parseInt(container.style("height")) + 10}`);
-    
+
   let g = playground.append("g");
   let runningGraphics = setInterval(() => {
     if (gameOver) clearInterval(runningGraphics);
@@ -61,12 +59,14 @@ let runGraphics = () => {
 // makes 3 squares @ every 2.5 seconds
 // transitions from top to bottom
 let makeObjects = () => {
+  let colors = ["#e44d61", "#ffdc32", "#204cee", "#54d2eb", "	#cfa5e0"];
+  let idx = 0;
   let makingObject = setInterval(() => {
     for (let i = 0; i < document.querySelectorAll(".object").length - 6; i++) {
       playground.select(".object").remove();
     }
     if (gameOver) clearInterval(makingObject);
-    let num = Math.random() * containerWidth;
+    let num = Math.random() * (containerWidth - 100);
     // playground.select(".object").remove();
 
     playground
@@ -76,6 +76,7 @@ let makeObjects = () => {
       .attr("class", "object")
       .attr("width", 100)
       .attr("height", 100)
+      .attr("fill", colors[idx++ % colors.length])
       .transition()
       .ease(d3.easeLinear)
       .duration(2500)
@@ -91,6 +92,7 @@ let makeObjects = () => {
       .attr("class", "object")
       .attr("width", 100)
       .attr("height", 100)
+      .attr("fill", colors[idx++ % colors.length])
       .transition()
       .delay(700)
       .ease(d3.easeLinear)
@@ -105,6 +107,7 @@ let makeObjects = () => {
       .attr("class", "object")
       .attr("width", 100)
       .attr("height", 100)
+      .attr("fill", colors[idx++ % colors.length])
       .transition()
       .delay(1500)
       .ease(d3.easeLinear)
@@ -156,7 +159,7 @@ let runGame = () => {
       "curr-score"
     ).innerHTML = `Curr score : <span> ${currScore} </span>`;
     if (gameOver) setFresh();
-  }, 300);
+  }, 500);
 };
 
 let updateMaxScore = () => {
