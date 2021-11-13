@@ -66,9 +66,11 @@ let makeObjects = () => {
       playground.select(".object").remove();
     }
     if (gameOver) clearInterval(makingObject);
-    let num = Math.random() * (containerWidth - 100);
+    let num = Math.random() * containerWidth;
     // playground.select(".object").remove();
-
+    if (num + 100 > containerWidth) {
+      num = containerWidth - 100;
+    }
     playground
       .append("rect")
       .attr("x", num)
@@ -85,6 +87,9 @@ let makeObjects = () => {
     // playground.select("rect").remove();
 
     num = Math.random() * containerWidth;
+    if (num + 100 > containerWidth) {
+      num = containerWidth - 100;
+    }
     playground
       .append("rect")
       .attr("x", num)
@@ -100,6 +105,9 @@ let makeObjects = () => {
       .attr("y", parseInt(container.style("height")));
 
     num = Math.random() * containerWidth;
+    if (num + 100 > containerWidth) {
+      num = containerWidth - 100;
+    }
     playground
       .append("rect")
       .attr("x", num)
