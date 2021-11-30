@@ -15,7 +15,8 @@ let addGraphics = () => {
     .attr("height", `${container.style("height")}`)
     .attr("width", `${container.style("width")}`);
 
-  playground.selectAll(".rect").remove();
+  playground.selectAll("rect").remove();
+  playground.selectAll("g").remove();
 
   playground
     .append("rect")
@@ -62,7 +63,7 @@ let makeObjects = () => {
   let colors = ["#e44d61", "#ffdc32", "#204cee", "#54d2eb", "	#cfa5e0"];
   let idx = 0;
   let makingObject = setInterval(() => {
-    for (let i = 0; i < document.querySelectorAll(".object").length - 6; i++) {
+    for (let i = 0; i < document.querySelectorAll(".object").length - 5; i++) {
       playground.select(".object").remove();
     }
     if (gameOver) clearInterval(makingObject);
@@ -157,17 +158,16 @@ let runGame = () => {
     // flag == true if collision occurs
     gameOver = checkCollision();
     if (gameOver) {
-      console.log(`Collision detected`);
       alert("GAME OVER");
       clearInterval(gameLoop);
       // newGame();
     }
-    currScore += 3;
+    currScore += 1;
     document.getElementById(
       "curr-score"
     ).innerHTML = `Curr score : <span> ${currScore} </span>`;
     if (gameOver) setFresh();
-  }, 500);
+  }, 165);
 };
 
 let updateMaxScore = () => {
@@ -205,22 +205,25 @@ document.getElementById("click-here").addEventListener("click", (e) => {
   newGame();
 });
 
-let refresh = () => {
-  container
-    .append("g")
-    .append("rect")
-    .attr("id", "refresh-rect")
-    .attr("class", "refresh")
-    .attr("stroke-width", "0.5em")
-    .attr("stroke", "white")
-    .attr("y", 0)
-    .attr("height", `${parseInt(container.style("height"))}`)
-    .attr("width", `${container.style("width")}`)
-    .attr("fill", "#000")
-    .transition()
-    .duration(2500)
-    .attr("y", `${parseInt(container.style("height"))}`);
-};
+// let refresh = () => {
+
+//   playground.selectAll('g').remove()
+
+//   container
+//     .append("g")
+//     .append("rect")
+//     .attr("id", "refresh-rect")
+//     .attr("class", "refresh")
+//     .attr("stroke-width", "0.5em")
+//     .attr("stroke", "white")
+//     .attr("y", 0)
+//     .attr("height", `${parseInt(container.style("height"))}`)
+//     .attr("width", `${container.style("width")}`)
+//     .attr("fill", "#000")
+//     .transition()
+//     .duration(2500)
+//     .attr("y", `${parseInt(container.style("height"))}`);
+// };
 
 let setFresh = () => {
   updateMaxScore();
